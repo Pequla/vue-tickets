@@ -6,19 +6,24 @@
                 <thead>
                     <tr>
                         <th scope="col">FLIGHT</th>
-                        <th scope="col">AIRLINE</th>
-                        <th scope="col">GATE</th>
                         <th scope="col">DESTINATION</th>
+                        <th scope="col">GATE</th>
+                        <th scope="col">AIRPLANE MODEL</th>
                         <th scope="col">DEPARTURE</th>
+                        <th scope="col">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="flight in flights.data">
-                        <th scope="row">{{ flight.flight.number }}</th>
-                        <td>{{ flight.airline.name }}</td>
-                        <td>{{ flight.departure.gate }}</td>
-                        <td>{{ flight.arrival.airport }}</td>
-                        <td>{{ new Date(flight.departure.scheduled) }}</td>
+                    <tr v-for="flight in flights">
+                        <th scope="row">{{ flight.BROJ_LETA }}</th>
+                        <td>{{ flight.DESTINACIJA }}</td>
+                        <td>{{ flight.GATE_BAY }}</td>
+                        <td>{{ flight.TIP_AVIONA }}</td>
+                        <td>{{ flight.ST + ' ' + flight.DATUM + ' ET: ' + flight.ET + ' ' + flight.DATUM_E }}</td>
+                        <td>
+                            <router-link to="/" class="btn btn-primary m-1">Book</router-link>
+                            <router-link to="/" class="btn btn-secondary m-1">More Details</router-link>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -36,7 +41,7 @@ import axios from 'axios';
 
 const flights = ref(null)
 
-axios.get('http://localhost:3200/api/flights')
+axios.get('http://localhost:7000/api/flights/today')
     .then(rsp => {
         console.log(rsp)
         flights.value = rsp.data

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1>Home</h1>
-    <GoogleMap :api-key="mapsApiKey" style="width: 100%; height: 500px" :center="center" :zoom="15">
+    <GoogleMap :api-key="mapsApiKey" style="width: 100%; height: 500px" :center="center" :zoom="10">
       <Marker :options="{ position: marker }" />
     </GoogleMap>
   </div>
@@ -10,7 +10,7 @@
 <script setup>
 import { GoogleMap, Marker } from "vue3-google-map";
 const mapsApiKey = 'AIzaSyBqXg92FLPp8VgrZs65RtjZgsY5WK9TiJA';
-const center = { lat: 44.689247, lng: 20.044502 };
+const center = { lat: 44.787197, lng: 20.457273 };
 const marker = { lat: 44.689247, lng: 20.044502 };
 </script>
 
