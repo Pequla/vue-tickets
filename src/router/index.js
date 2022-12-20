@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import FlightView from '../views/FlightView.vue'
-import RasaView from '../views/RasaView.vue'
+import FlightDetails from '../views/FlightDetails.vue'
 
 const routes = [
   {
@@ -22,21 +22,23 @@ const routes = [
     }
   },
   {
-    path: '/flights',
-    name: 'flights',
+    path: '/flight',
+    name: 'flight',
     component: FlightView,
     meta: {
       title: 'Flights'
     }
   },
   {
-    path: '/chat',
-    name: 'chat',
-    component: RasaView,
+    path: '/flight/:id',
+    name: 'details',
+    component: FlightDetails,
     meta: {
-      title: 'Bot Chat'
-    }
-  }
+      title: 'Details'
+    },
+    params: true
+  },
+
 ]
 
 const router = createRouter({

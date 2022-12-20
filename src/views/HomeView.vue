@@ -37,7 +37,7 @@
         </select>
       </div>
     </div>
-    <div class="row mb-3">
+    <div class="row mb-3" v-if="(results && results.length > 0)">
       <div class="col-sm" v-for="result in results.slice(0, 3)">
         <div class="card">
           <img :src="getDestImageUrl(result.destination)" class="card-img-top" alt="...">
@@ -53,6 +53,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="row mb-3" v-else>
+      No flights found to <strong>{{destination}}</strong>
     </div>
     <div class="row mb-3">
       <div class="col">
@@ -71,9 +74,8 @@ import HereService from "@/services/HereService";
 import { ref } from "vue";
 import { GoogleMap, Marker } from "vue3-google-map";
 
-const mapsApiKey = 'AIzaSyBqXg92FLPp8VgrZs65RtjZgsY5WK9TiJA';
+const mapsApiKey = 'AIzaSyDK8SrIRcGIsEH6toNfU1C85qnaLiECvKs';
 const center = { lat: 44.787197, lng: 20.457273 };
-// const marker = { lat: 44.689247, lng: 20.044502 };
 
 const destinations = ref(null);
 const destination = ref("invalid")

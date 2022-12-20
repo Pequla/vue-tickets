@@ -18,7 +18,7 @@
             <router-link class="nav-link" aria-current="page" to="/about">About</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" aria-current="page" to="/flights">Flights</router-link>
+            <router-link class="nav-link" aria-current="page" to="/flight">Flights</router-link>
           </li>
         </ul>
         <!-- <div class="d-flex">
