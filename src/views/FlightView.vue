@@ -9,17 +9,20 @@
                         <th scope="col">DESTINATION</th>
                         <th scope="col">GATE</th>
                         <th scope="col">AIRPLANE MODEL</th>
-                        <th scope="col">DEPARTURE</th>
+                        <th scope="col">DEPARTURE SCHEDULED</th>
+                        <th scope="col">DEPARTURE ESTIMATED</th>
                         <th scope="col">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="flight in flights">
-                        <th scope="row">{{ flight.BROJ_LETA }}</th>
-                        <td>{{ flight.DESTINACIJA }}</td>
-                        <td>{{ flight.GATE_BAY }}</td>
-                        <td>{{ flight.TIP_AVIONA }}</td>
-                        <td>{{ flight.ST + ' ' + flight.DATUM + ' ET: ' + flight.ET + ' ' + flight.DATUM_E }}</td>
+                        <th scope="row">{{ flight.flightNumber }}</th>
+                        <td>{{ flight.destination }}</td>
+                        <td>{{ flight.gate }}</td>
+                        <td>{{ flight.plane }}</td>
+                        <td>{{ new Date(flight.scheduledAt).toLocaleString('sr-SR') }}</td>
+                        <td v-if="flight.estimatedAt">{{ new Date(flight.estimatedAt).toLocaleString('sr-SR') }}</td>
+                        <td v-else>N/A</td>
                         <td>
                             <router-link to="/" class="btn btn-primary m-1">Book</router-link>
                             <router-link to="/" class="btn btn-secondary m-1">More Details</router-link>
@@ -30,20 +33,26 @@
         </div>
         <div class="mx-auto text-center" v-else>
             <p>Please wait, loading flight data</p>
-            <img src="@/assets/img/halflife_cat.gif" />
+            <img src="@/assets/img/halflife_cat.gif" class="w-200px" />
         </div>
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import axios from 'axios';
+import FlightService from '@/services/FlightService'
 
 const flights = ref(null)
 
-axios.get('http://localhost:7000/api/flights/today')
+FlightService.getFlights()
     .then(rsp => {
         console.log(rsp)
-        flights.value = rsp.data
+        flights.value = rsp.data.content
     }).catch(e => console.log(e.message));
 </script>
+
+<style scoped>
+.w-200px {
+    width: 200px;
+}
+</style>
