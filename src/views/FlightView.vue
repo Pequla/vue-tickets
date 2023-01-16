@@ -74,7 +74,7 @@
         </div>
         <div class="mx-auto text-center" v-else>
             <p>Please wait, loading flight data</p>
-            <img src="@/assets/img/halflife_cat.gif" class="w-200px" />
+            <img src="@/assets/img/maxwell.gif" class="w-200px" />
         </div>
     </div>
 </template>
