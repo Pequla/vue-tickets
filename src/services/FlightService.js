@@ -14,7 +14,8 @@ export default {
         return client.get('/flight', {
             params: {
                 page: page,
-                size: size
+                size: size,
+                sort: 'scheduledAt,asc'
             }
         })
     },
