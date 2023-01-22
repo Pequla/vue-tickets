@@ -29,7 +29,8 @@ export default {
         return client.get('/flight/destination/' + destination, {
             params: {
                 page: page,
-                size: size
+                size: size,
+                sort: 'scheduledAt,asc'
             }
         })
     }

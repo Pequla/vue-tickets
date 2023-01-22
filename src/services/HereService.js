@@ -11,6 +11,7 @@ const client = axios.create({
 
 export default {
     geocode(query) {
+        query = query.split(' ')[0]
         return client.get('/geocode?q=' + query)
     }
 }

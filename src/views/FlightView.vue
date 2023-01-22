@@ -84,7 +84,7 @@ import { ref } from 'vue';
 import FlightService from '@/services/FlightService'
 
 const result = ref(null)
-const size = ref(5)
+const size = ref(10)
 
 function retrieveData(p = 0, s = size.value) {
     FlightService.getFlights(p, s)
