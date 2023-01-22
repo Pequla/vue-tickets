@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
-import FlightView from '../views/FlightView.vue'
-import FlightDetails from '../views/FlightDetails.vue'
+import HomeView from '@/views/HomeView.vue'
+import AboutView from '@/views/AboutView.vue'
+import FlightView from '@/views/FlightView.vue'
+import FlightDetails from '@/views/FlightDetails.vue'
+import DestinationView from "@/views/DestinationView.vue";
 
 const routes = [
   {
@@ -38,7 +39,15 @@ const routes = [
     },
     params: true
   },
-
+  {
+    path: '/destination/:dest',
+    name: 'Destination',
+    component: DestinationView,
+    meta: {
+      title: 'Destination'
+    },
+    params: true
+  }
 ]
 
 const router = createRouter({

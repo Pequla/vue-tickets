@@ -38,14 +38,13 @@
       </div>
     </div>
     <div class="row mb-3" v-if="(results && results.length > 0)">
-      <div class="col-sm" v-for="result in results.slice(0, 3)">
+      <div class="col-sm d-flex justify-content-center flight-card" v-for="result in results.slice(0, 3)">
         <div class="card">
           <img :src="ImageService.getDestinationImageUrl(result.destination)" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">{{ result.destination }}</h5>
             <p class="card-text">Flight <strong>{{ result.flightNumber }}</strong>, departure at: <strong>{{
-                new
-                Date(result.scheduledAt).toLocaleString('sr-SR')
+                new Date(result.scheduledAt).toLocaleString('sr-SR')
               }}</strong></p>
           </div>
           <div class="card-body">
@@ -108,8 +107,7 @@ const refreshData = function () {
 </script>
 
 <style>
-#google-map {
-  width: 100%;
-  height: 480px;
+.flight-card {
+  max-width: 33%;
 }
 </style>

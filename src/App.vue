@@ -22,7 +22,8 @@
           </li>
         </ul>
         <div class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="I want to go to..." v-model="destination">
+          <input class="form-control me-2" type="search" placeholder="I want to go to..." v-model="destination"
+                 @keypress="keyPressHandler">
           <button class="btn btn-outline-success" type="button" @click="search">Search</button>
         </div>
       </div>
@@ -39,10 +40,18 @@
 
 <script setup>
 import {ref} from "vue";
+import router from "@/router";
 
 const year = new Date().getFullYear();
 const destination = ref();
 const search = function () {
-  console.log('Looking up: ' + destination.value)
+  if (destination.value == "" || destination.value == null || destination.value == " ") return;
+  router.push('/destination/' + destination.value);
+  destination.value = null;
+}
+const keyPressHandler = (e) => {
+  if (e.key === 'Enter') {
+    search();
+  }
 }
 </script>

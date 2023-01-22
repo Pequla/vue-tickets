@@ -87,6 +87,7 @@ FlightService.getFlightById(id)
         const dive = document.getElementById("dest-image")
         dive.style.backgroundImage = "url('" + img.src + "')";
         dive.style.backgroundSize = "cover";
+        dive.style.backgroundPosition = "center"
       };
       img.src = ImageService.getDestinationImageUrl(rsp.data.destination);
 

@@ -2,56 +2,63 @@
 <html lang="">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-  <title>VueTickets</title>
-  <link href="https://data.pequla.com/assets/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .rw-launcher {
-      background-color: #41B883 !important;
-    }
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>VueTickets</title>
+    <link href="https://data.pequla.com/assets/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .rw-launcher {
+            background-color: #6c757d !important;
+        }
 
-    .rw-conversation-container .rw-header {
-      background-color: #41B883 !important;
-    }
+        .rw-conversation-container .rw-header {
+            background-color: #6c757d !important;
+        }
 
-    .rw-conversation-container .rw-messages-container .rw-message .rw-client{
-      background-color: #41B883 !important;
-    }
-  </style>
+        .rw-conversation-container .rw-messages-container .rw-message .rw-client {
+            background-color: #6c757d !important;
+        }
+
+        .rw-sender-{
+            background-color: #6c757d !important;
+        }
+    </style>
 </head>
 
 <body>
-  <noscript>
+<noscript>
     <strong>This app requires javascript to work</strong>
-  </noscript>
-  <div id="app"></div>
-  <!-- built files will be auto injected -->
-  <script src="https://data.pequla.com/assets/js/bootstrap.bundle.min.js"></script>
-  <script>!(function () {
-      let e = document.createElement("script"),
+</noscript>
+<div id="app"></div>
+<!-- built files will be auto injected -->
+<script src="https://data.pequla.com/assets/js/bootstrap.bundle.min.js"></script>
+<script>!(function () {
+    let e = document.createElement("script"),
         t = document.head || document.getElementsByTagName("head")[0];
-      (e.src =
+    (e.src =
         "https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.js"),
         // Replace 1.x.x with the version that you want
         (e.async = !0),
         (e.onload = () => {
-          window.WebChat.default(
-            {
-              title: 'Ticket Agent',
-              initPayload: '/greet',
-              customData: { language: "en" },
-              socketUrl: "http://194.60.201.158:5005",
-              // add other props here
-            },
-            null
-          );
+            window.WebChat.default(
+                {
+                    title: 'Ticket Agent',
+                    subtitle: 'Powered by Rasa',
+                    showMessageDate: true,
+                    profileAvatar: '<%= BASE_URL %>favicon.ico',
+                    initPayload: '/greet',
+                    customData: {language: "en"},
+                    socketUrl: "http://194.60.201.158:5005",
+                    // add other props here
+                },
+                null
+            );
         }),
         t.insertBefore(e, t.firstChild);
-    })();
-  </script>
+})();
+</script>
 </body>
 
 </html>
