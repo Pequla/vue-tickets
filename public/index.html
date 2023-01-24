@@ -20,10 +20,6 @@
         .rw-conversation-container .rw-messages-container .rw-message .rw-client {
             background-color: #6c757d !important;
         }
-
-        .rw-sender-{
-            background-color: #6c757d !important;
-        }
     </style>
 </head>
 
@@ -50,7 +46,8 @@
                     profileAvatar: '<%= BASE_URL %>favicon.ico',
                     initPayload: '/greet',
                     customData: {language: "en"},
-                    socketUrl: "http://194.60.201.158:5005",
+                    // socketUrl: "http://194.60.201.158:5005",
+                    socketUrl: "http://localhost:5005",
                     // add other props here
                 },
                 null
