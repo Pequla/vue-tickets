@@ -20,6 +20,20 @@
           <li class="nav-item">
             <router-link class="nav-link" aria-current="page" to="/flight">Flights</router-link>
           </li>
+          <li class="nav-item dropdown" v-if="isLoggedIn && user">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{user}}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><router-link class="dropdown-item" to="/user/proffile">Profile</router-link></li>
+              <li><router-link class="dropdown-item" to="/user/ticket">My Tickets</router-link></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><router-link class="dropdown-item" to="/action/logout">Logout</router-link></li>
+            </ul>
+          </li>
+          <li class="nav-item" v-else>
+            <router-link class="nav-link" aria-current="page" to="/action/login">Login</router-link>
+          </li>
         </ul>
         <div class="d-flex">
           <input class="form-control me-2" type="search" placeholder="I want to go to..." v-model="destination"
@@ -41,6 +55,7 @@
 <script setup>
 import {ref} from "vue";
 import router from "@/router";
+import UserService from "@/services/UserService";
 
 const year = new Date().getFullYear();
 const destination = ref();
@@ -54,4 +69,8 @@ const keyPressHandler = (e) => {
     search();
   }
 }
+
+const isLoggedIn = localStorage.getItem('token') !== null
+const user = ref();
+UserService.getSelfUser().then(rsp=>user.value = rsp.data.name);
 </script>
