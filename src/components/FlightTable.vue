@@ -73,7 +73,6 @@
         <td v-if="flight.estimatedAt">{{ new Date(flight.estimatedAt).toLocaleString('sr-SR') }}</td>
         <td v-else>N/A</td>
         <td>
-          <router-link to="/" class="btn btn-primary m-1">Book</router-link>
           <router-link :to="('/flight/' + flight.id)" class="btn btn-secondary m-1">More
             Details
           </router-link>

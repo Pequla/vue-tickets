@@ -25,7 +25,7 @@
               {{user}}
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><router-link class="dropdown-item" to="/user/proffile">Profile</router-link></li>
+              <li><router-link class="dropdown-item" to="/user/profile">Profile</router-link></li>
               <li><router-link class="dropdown-item" to="/user/ticket">My Tickets</router-link></li>
               <li><hr class="dropdown-divider"></li>
               <li><router-link class="dropdown-item" to="/action/logout">Logout</router-link></li>

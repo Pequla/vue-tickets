@@ -12,15 +12,14 @@ const client = axios.create({
     }
 });
 
-function tokenData() {
+function getToken() {
     const token = localStorage.getItem('token');
-    if (!token) return Error("No token set");
-
-    return {
-        params: {
-            token: token
-        }
+    if (!token) {
+        router.push('/action/login')
+        throw new Error("No token set")
     }
+
+    return token;
 }
 
 function handleError(err) {
@@ -38,7 +37,7 @@ export default {
         client.post('/user/login', data)
             .then(rsp => {
                 localStorage.setItem('token', rsp.data.token);
-                router.push('/')
+                window.location.href = '/'
             })
             .catch(err => handleError(err))
     },
@@ -55,6 +54,11 @@ export default {
             .catch(err => handleError(err))
     },
     getSelfUser() {
-        return client.get('/user/self', {params: {token: localStorage.getItem('token')}})
+        return client.get('/user/self', {params: {token: getToken()}})
+    },
+    updateProfile(payload) {
+        client.put('/user?token=' + getToken(), payload)
+            .then(rsp => window.location.reload())
+            .catch(err => handleError(err))
     }
 }
