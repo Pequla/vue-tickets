@@ -1,0 +1,70 @@
+<template>
+  <div class="mx-auto w-50 p-3 m-3">
+    <h3>New ticket order</h3>
+    <div class="mb-3">
+      <label for="flight" class="form-label">Flight:</label>
+      <input v-model="flight" id="flight" type="text" class="form-control" disabled/>
+    </div>
+    <div class="mb-3">
+      <label for="destination" class="form-label">Destination:</label>
+      <input v-model="destination" id="destination" type="text" class="form-control"/>
+    </div>
+    <div class="mb-3">
+      <label for="departure" class="form-label">Departure:</label>
+      <input v-model="departure" id="departure" type="text" class="form-control" disabled/>
+    </div>
+    <div class="mb-3">
+      <label for="airline" class="form-label">Chose your Airline:</label>
+      <select class="form-select" id="airline" v-model="airline">
+        <option value="Air Serbia">Air Serbia</option>
+        <option value="Fly Emirates">Fly Emirates</option>
+        <option value="Air France">Air France</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="count" class="form-label">Chose ticket count:</label>
+      <select class="form-select" id="count" v-model="count">
+        <option value="1">Single person</option>
+        <option value="2">Two people</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+    </div>
+    <button type="button" class="btn btn-success" @click="bookCallback">Book now</button>
+  </div>
+</template>
+
+<script setup>
+// FLIGHT, DEPARTURE, AIRLINE, COUNT
+import {ref} from "vue";
+import UserService from "@/services/UserService";
+import {useRoute} from "vue-router";
+import FlightService from "@/services/FlightService";
+
+const route = useRoute()
+const id = route.params.id;
+
+const flight = ref();
+const destination = ref();
+const departure = ref();
+const airline = ref("Air Serbia")
+const count = ref(1)
+
+FlightService.getFlightById(id).then(rsp=>{
+  flight.value = rsp.data.flightKey;
+  destination.value =rsp.data.destination;
+  departure.value = new Date(rsp.data.scheduledAt).toLocaleString("sr-SR");
+})
+
+function bookCallback() {
+  UserService.createTicket({
+    'flightId': id,
+    'airline': airline.value,
+    'count': count.value
+  })
+}
+</script>
+
+<style scoped>
+
+</style>

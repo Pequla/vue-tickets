@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto w-50 p-3 m-3 border border-success rounded">
+  <div class="mx-auto w-50 p-3 m-3">
     <h3>Please fill out the form</h3>
     <div class="mb-3">
       <label for="name" class="form-label">Name:</label>

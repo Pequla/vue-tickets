@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto w-50 p-3 m-3 border border-success rounded">
+  <div class="mx-auto w-50 p-3 m-3">
     <h3>Profile information</h3>
     <div class="mb-3">
       <label for="login-email" class="form-label">Email:</label>
@@ -21,7 +21,7 @@
       <label for="last" class="form-label">Last login:</label>
       <input v-model="last" id="last" type="text" class="form-control" disabled/>
     </div>
-    <button type="button" class="btn btn-primary" @click="updateCallback">Update profile</button>
+    <button type="button" class="btn btn-success" @click="updateCallback">Update profile</button>
   </div>
 </template>
 
@@ -50,7 +50,7 @@ UserService.getSelfUser().then(rsp => {
 })
 
 function updateCallback() {
-    UserService.updateProfile({name: name.value})
+  UserService.updateProfile({name: name.value})
 }
 </script>
 

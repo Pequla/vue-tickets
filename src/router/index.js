@@ -10,6 +10,8 @@ import ErrorView from "@/views/action/ErrorView.vue";
 import VerifyView from "@/views/action/VerifyView.vue";
 import LogoutView from "@/views/action/LogoutView.vue";
 import ProfileView from "@/views/user/ProfileView.vue";
+import NewView from "@/views/user/ticket/NewView.vue";
+import TicketView from "@/views/user/ticket/TicketView.vue";
 
 const routes = [
     {
@@ -102,6 +104,24 @@ const routes = [
         meta: {
             title: 'Profile'
         }
+    },
+    {
+        path: '/user/ticket/new/:id',
+        name: 'book',
+        component: NewView,
+        meta: {
+            title: 'New Ticket'
+        },
+        params: true
+    },
+    {
+        path: '/user/ticket/:id',
+        name: 'ticket',
+        component: TicketView,
+        meta: {
+            title: 'Ticket'
+        },
+        params: true
     }
 ]
 

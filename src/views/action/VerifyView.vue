@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto text-center w-50 p-3 m-3 border border-success rounded">
+  <div class="mx-auto text-center w-50 p-3 m-3">
     <h3>Successfully verified email</h3>
     <p>You can close this page now</p>
   </div>

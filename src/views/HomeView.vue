@@ -48,7 +48,7 @@
               }}</strong></p>
           </div>
           <div class="card-body">
-            <a href="#" class="card-link btn btn-primary">Book</a>
+            <router-link :to="'/user/ticket/new/'+result.id" class="card-link btn btn-success">Book</router-link>
             <router-link :to="'/flight/'+result.id" class="card-link btn btn-secondary">More Details</router-link>
           </div>
         </div>
@@ -57,7 +57,7 @@
     <div class="row mb-3" v-else>
       No flights found to <strong>{{ destination }}</strong>
     </div>
-    <MapDisplay :center="{lat: 44.787197, lng: 20.457273}" :markers="positions"></MapDisplay>
+    <MapDisplay :center="{lat: 44.787197, lng: 20.457273}" :markers="markers"></MapDisplay>
   </div>
 </template>
 
@@ -79,14 +79,17 @@ FlightService.getDestinations()
 
 
 const results = ref(null);
-const positions = ref([]);
+const markers = ref(null);
 const renderData = function (service) {
   service.then(rsp => {
     results.value = rsp.data.content
     rsp.data.content.forEach(flight => {
       HereService.geocode(flight.destination)
           .then(coded => {
-            positions.value.push(coded.data.items[0].position)
+            markers.value.push({
+              id: flight.id,
+              position: coded.data.items[0].position
+            })
           })
     });
   })

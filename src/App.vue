@@ -74,3 +74,9 @@ const isLoggedIn = localStorage.getItem('token') !== null
 const user = ref();
 UserService.getSelfUser().then(rsp=>user.value = rsp.data.name);
 </script>
+
+<style scoped>
+a {
+  color: #198754;
+}
+</style>

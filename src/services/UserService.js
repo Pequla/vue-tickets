@@ -13,13 +13,7 @@ const client = axios.create({
 });
 
 function getToken() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-        router.push('/action/login')
-        throw new Error("No token set")
-    }
-
-    return token;
+    return localStorage.getItem('token');
 }
 
 function handleError(err) {
@@ -59,6 +53,13 @@ export default {
     updateProfile(payload) {
         client.put('/user?token=' + getToken(), payload)
             .then(rsp => window.location.reload())
+            .catch(err => handleError(err))
+    },
+    createTicket(payload) {
+        client.post('/ticket?token=' + getToken(), payload)
+            .then(rsp => {
+                router.push('/user/ticket/' + rsp.data.id);
+            })
             .catch(err => handleError(err))
     }
 }

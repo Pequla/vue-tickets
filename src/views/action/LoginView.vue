@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto w-50 p-3 m-3 border border-success rounded">
+  <div class="mx-auto w-50 p-3 m-3">
     <h3>Welcome back!</h3>
     <div class="mb-3">
       <label for="login-email" class="form-label">Email:</label>

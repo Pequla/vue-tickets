@@ -1,7 +1,7 @@
 <template>
   <div v-if="result && (result.content).length === 0" class="mx-auto text-center">
     <p>Sorry, no flights have been found
-    <br/>Here is a cat to cheer you up!</p>
+      <br/>Here is a cat to cheer you up!</p>
     <img src="@/assets/img/maxwell.gif" class="w-200px" alt="loading animation"/>
   </div>
   <div v-else-if="result && (result.content).length > 0">
@@ -18,36 +18,36 @@
           </select>
         </li>
         <li class="page-item">
-          <button class="page-link" @click="firstPage">First</button>
+          <button class="page-link text-success" @click="firstPage">First</button>
         </li>
         <li class="page-item">
-          <button class="page-link" @click="previousPage">Previous</button>
+          <button class="page-link text-success" @click="previousPage">Previous</button>
         </li>
         <li class="page-item" v-if="!result.first">
-          <button class="page-link" @click="retrieveData(result.number - 1, result.size)">{{
+          <button class="page-link text-success" @click="retrieveData(result.number - 1, result.size)">{{
               result.number
               - 1
             }}
           </button>
         </li>
-        <li class="page-item active">
-          <button class="page-link" @click="retrieveData(result.number, result.size)">{{
+        <li class="page-item custom-active">
+          <button class="page-link custom-page-link" @click="retrieveData(result.number, result.size)">{{
               result.number
             }}
           </button>
         </li>
         <li class="page-item" v-if="!result.last">
-          <button class="page-link" @click="retrieveData(result.number + 1, result.size)">{{
+          <button class="page-link text-success" @click="retrieveData(result.number + 1, result.size)">{{
               result.number
               + 1
             }}
           </button>
         </li>
         <li class="page-item">
-          <button class="page-link" @click="nextPage">Next</button>
+          <button class="page-link text-success" @click="nextPage">Next</button>
         </li>
         <li class="page-item">
-          <button class="page-link" @click="lastPage">Last</button>
+          <button class="page-link text-success" @click="lastPage">Last</button>
         </li>
       </ul>
     </nav>
@@ -73,9 +73,8 @@
         <td v-if="flight.estimatedAt">{{ new Date(flight.estimatedAt).toLocaleString('sr-SR') }}</td>
         <td v-else>N/A</td>
         <td>
-          <router-link :to="('/flight/' + flight.id)" class="btn btn-secondary m-1">More
-            Details
-          </router-link>
+          <router-link :to="('/user/ticket/new/' + flight.id)" class="btn btn-success m-1">Book</router-link>
+          <router-link :to="('/flight/' + flight.id)" class="btn btn-secondary m-1">More Details</router-link>
         </td>
       </tr>
       </tbody>
@@ -141,5 +140,15 @@ const changeSize = (e) => {
 <style scoped>
 .w-200px {
   width: 200px;
+}
+
+.custom-active {
+  background-color: #198754 !important;
+  border-color: #198754 !important;
+}
+
+.custom-page-link {
+  color: white;
+  background: #198754;
 }
 </style>
