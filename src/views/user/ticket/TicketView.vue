@@ -29,6 +29,10 @@
           <th>{{ ticket.count }}</th>
         </tr>
         <tr>
+          <th>TYPE</th>
+          <th>{{ (ticket.oneWay) ? "One way" : "Return" }}</th>
+        </tr>
+        <tr>
           <th>REGISTERED AT</th>
           <th>{{ new Date(ticket.createdAt).toLocaleString('sr-SR') }}</th>
         </tr>
