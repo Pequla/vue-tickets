@@ -15,6 +15,7 @@ import TicketView from "@/views/user/ticket/TicketView.vue";
 import BarcodeView from "@/views/user/ticket/BarcodeView.vue";
 import TicketList from "@/views/user/ticket/TicketList.vue";
 import UsedTickets from "@/views/user/ticket/UsedTickets.vue";
+import ResetPassword from "@/views/user/ResetPassword.vue";
 
 const routes = [
     {
@@ -106,6 +107,14 @@ const routes = [
         component: ProfileView,
         meta: {
             title: 'Profile'
+        }
+    },
+    {
+        path: '/user/password',
+        name: 'password',
+        component: ResetPassword,
+        meta: {
+            title: 'Change Password'
         }
     },
     {

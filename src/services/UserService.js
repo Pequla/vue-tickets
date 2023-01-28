@@ -2,7 +2,7 @@ import axios from "axios";
 import router from "@/router";
 
 const client = axios.create({
-    baseURL: 'http://localhost:9090/api',
+    baseURL: process.env.VUE_APP_BACKEND_URL,
     withCredentials: false,
     headers: {
         Accept: 'application/json',
@@ -77,5 +77,10 @@ export default {
     },
     getUsedTickets() {
         return client.get('/ticket/used?token=' + getToken())
+    },
+    changePassword(payload) {
+        client.put('/user/password?token=' + getToken(), payload)
+            .then(rsp => router.push('/'))
+            .catch(err => handleError(err))
     }
 }

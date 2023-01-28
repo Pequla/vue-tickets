@@ -39,6 +39,9 @@
                 <hr class="dropdown-divider">
               </li>
               <li>
+                <router-link class="dropdown-item" to="/user/password">Change Password</router-link>
+              </li>
+              <li>
                 <router-link class="dropdown-item" to="/action/logout">Logout</router-link>
               </li>
             </ul>
