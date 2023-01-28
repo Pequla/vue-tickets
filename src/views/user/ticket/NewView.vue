@@ -50,9 +50,24 @@ const id = route.params.id;
 const flight = ref();
 const destination = ref();
 const departure = ref();
-const airline = ref("Air Serbia")
-const count = ref(1)
-const oneWay = ref(false)
+
+// Setting airline
+if (!localStorage.getItem('airline')) {
+  localStorage.setItem('airline', 'Air Serbia')
+}
+const airline = ref(localStorage.getItem('airline'))
+
+// Setting count
+if (!localStorage.getItem('count')) {
+  localStorage.setItem('count', '1')
+}
+const count = ref(parseInt(localStorage.getItem('count')))
+
+// Setting one way
+if (!localStorage.getItem('oneWay')) {
+  localStorage.setItem('oneWay', 'true')
+}
+const oneWay = ref(localStorage.getItem('oneWay'))
 
 FlightService.getFlightById(id).then(rsp => {
   flight.value = rsp.data.flightKey;

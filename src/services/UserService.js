@@ -74,5 +74,8 @@ export default {
     },
     getTickets() {
         return client.get('/ticket?token=' + getToken())
+    },
+    getUsedTickets() {
+        return client.get('/ticket/used?token=' + getToken())
     }
 }

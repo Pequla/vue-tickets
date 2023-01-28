@@ -1,6 +1,7 @@
 <template>
   <Breadcrumb :crumbs="[{text: 'Tickets'}]"></Breadcrumb>
-  <table class="table table-striped" v-if="tickets">
+  <div v-if="tickets && tickets.length > 0">
+  <table class="table table-striped">
     <thead>
     <tr>
       <th scope="col">TICKET ID</th>
@@ -21,12 +22,17 @@
       <td>{{ ticket.airline }}</td>
       <td>{{ ticket.count }}</td>
       <td>
-        <router-link :to="('/user/ticket/' + ticket.id + '/barcode')" class="btn btn-success m-1">Show Barcode</router-link>
+        <router-link :to="('/user/ticket/' + ticket.id + '/barcode')" class="btn btn-success m-1">Show Barcode
+        </router-link>
         <router-link :to="('/user/ticket/' + ticket.id)" class="btn btn-secondary m-1">More Details</router-link>
       </td>
     </tr>
     </tbody>
   </table>
+  </div>
+  <div v-else>
+    You dont have any tickets :(
+  </div>
 </template>
 
 <script setup>

@@ -33,6 +33,9 @@
                 <router-link class="dropdown-item" to="/user/ticket">My Tickets</router-link>
               </li>
               <li>
+                <router-link class="dropdown-item" to="/user/ticket/used">Used Tickets</router-link>
+              </li>
+              <li>
                 <hr class="dropdown-divider">
               </li>
               <li>

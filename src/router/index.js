@@ -14,6 +14,7 @@ import NewView from "@/views/user/ticket/NewView.vue";
 import TicketView from "@/views/user/ticket/TicketView.vue";
 import BarcodeView from "@/views/user/ticket/BarcodeView.vue";
 import TicketList from "@/views/user/ticket/TicketList.vue";
+import UsedTickets from "@/views/user/ticket/UsedTickets.vue";
 
 const routes = [
     {
@@ -140,6 +141,14 @@ const routes = [
         component: TicketList,
         meta: {
             title: 'Tickets'
+        }
+    },
+    {
+        path: '/user/ticket/used',
+        name: 'used',
+        component: UsedTickets,
+        meta: {
+            title: 'Used Tickets'
         }
     }
 ]

@@ -38,7 +38,7 @@
         </tr>
         <tr>
           <th colspan="2">
-            <router-link class="btn btn-success m-1" :to="'/user/ticket/'+ticket.id+'/barcode'">Show barcode
+            <router-link class="btn btn-success m-1" :to="'/user/ticket/'+ticket.id+'/barcode'">Show Barcode
             </router-link>
             <router-link class="btn btn-secondary m-1" :to="'/flight/'+ticket.flight.id">Flight Information
             </router-link>
