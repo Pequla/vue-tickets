@@ -1,9 +1,9 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import AboutView from '@/views/AboutView.vue'
-import FlightView from '@/views/FlightView.vue'
+import FlightList from '@/views/FlightList.vue'
 import FlightDetails from '@/views/FlightDetails.vue'
-import DestinationView from "@/views/DestinationView.vue";
+import SearchView from "@/views/SearchView.vue";
 import LoginView from "@/views/action/LoginView.vue";
 import SignupView from "@/views/action/SignupView.vue";
 import ErrorView from "@/views/action/ErrorView.vue";
@@ -12,6 +12,8 @@ import LogoutView from "@/views/action/LogoutView.vue";
 import ProfileView from "@/views/user/ProfileView.vue";
 import NewView from "@/views/user/ticket/NewView.vue";
 import TicketView from "@/views/user/ticket/TicketView.vue";
+import BarcodeView from "@/views/user/ticket/BarcodeView.vue";
+import TicketList from "@/views/user/ticket/TicketList.vue";
 
 const routes = [
     {
@@ -33,7 +35,7 @@ const routes = [
     {
         path: '/flight',
         name: 'flight',
-        component: FlightView,
+        component: FlightList,
         meta: {
             title: 'Flights'
         }
@@ -48,11 +50,11 @@ const routes = [
         params: true
     },
     {
-        path: '/destination/:dest',
-        name: 'destination',
-        component: DestinationView,
+        path: '/search/:dest',
+        name: 'search',
+        component: SearchView,
         meta: {
-            title: 'Destination'
+            title: 'Search'
         },
         params: true
     },
@@ -122,6 +124,23 @@ const routes = [
             title: 'Ticket'
         },
         params: true
+    },
+    {
+        path: '/user/ticket/:id/barcode',
+        name: 'barcode',
+        component: BarcodeView,
+        meta: {
+            title: 'Barcode'
+        },
+        params: true
+    },
+    {
+        path: '/user/ticket',
+        name: 'tickets',
+        component: TicketList,
+        meta: {
+            title: 'Tickets'
+        }
     }
 ]
 

@@ -5,7 +5,7 @@
     <p v-if="msg">Some more error information:
       <br/> {{ msg }}
     </p>
-    <p><img src="@/assets/img/abigus.jpg" alt="error image" class="w-50"></p>
+    <p><img src="@/assets/img/plane.gif" alt="error image" class="w-100"></p>
   </div>
 </template>
 

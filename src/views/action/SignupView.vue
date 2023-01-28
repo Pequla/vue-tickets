@@ -12,6 +12,27 @@
       <div id="email-help" class="form-text">You will have to verify this email later</div>
     </div>
     <div class="mb-3">
+      <label for="country" class="form-label">Country:</label>
+      <select class="form-select" id="country" v-model="country">
+        <option value="Serbia">Serbia</option>
+        <option value="Montenegro">Montenegro</option>
+        <option value="North Macedonia">North Macedonia</option>
+        <option value="Bosnia And Herzegovina">Bosnia And Herzegovina</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="city" class="form-label">City:</label>
+      <input v-model="city" id="city" type="text" class="form-control"/>
+    </div>
+    <div class="mb-3">
+      <label for="address" class="form-label">Address:</label>
+      <input v-model="address" id="address" type="text" class="form-control"/>
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone:</label>
+      <input v-model="phone" id="phone" type="tel" class="form-control"/>
+    </div>
+    <div class="mb-3">
       <label for="login-password" class="form-label">Password:</label>
       <input v-model="password" id="login-password" type="password" class="form-control" aria-describedby="password-help"/>
       <div id="password-help" class="form-text">Password must be at least 8 characters long</div>
@@ -31,6 +52,10 @@ import UserService from "@/services/UserService";
 
 const name = ref("");
 const email = ref("");
+const country = ref('Serbia');
+const city = ref();
+const address = ref();
+const phone = ref();
 const password = ref("");
 const repeatPassword = ref("");
 
@@ -40,7 +65,11 @@ function signupCallback() {
     const payload = {
       'email': email.value,
       'password': password.value,
-      'name': name.value
+      'name': name.value,
+      'country': country.value,
+      'city': city.value,
+      'address': address.value,
+      'phone': phone.value
     }
     console.log(payload)
     UserService.signup(payload)

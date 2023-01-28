@@ -33,5 +33,8 @@ export default {
                 sort: 'scheduledAt,asc'
             }
         })
+    },
+    searchDestinations(input) {
+        return client.get('/flight/destination/search/' + input)
     }
 }

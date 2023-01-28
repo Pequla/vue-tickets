@@ -7,11 +7,11 @@
         <table class="table table-striped">
           <tbody>
           <tr>
-            <th>ID</th>
+            <th>FLIGHT ID</th>
             <th>{{ flight.id }}</th>
           </tr>
           <tr>
-            <th>NUMBER</th>
+            <th>FLIGHT NUMBER</th>
             <th>{{ flight.flightNumber }}</th>
           </tr>
           <tr>
@@ -42,8 +42,7 @@
           </tr>
           <tr>
             <th colspan="2">
-              <button class="btn btn-primary m-1">Book Now</button>
-              <button class="btn btn-success">Save To Favourites</button>
+              <router-link class="btn btn-success m-1" :to="'/user/ticket/new/'+flight.id">Book Now</router-link>
             </th>
           </tr>
           </tbody>
@@ -51,11 +50,9 @@
       </div>
       <div class="col-4" id="dest-image"></div>
     </div>
-    <MapDisplay :center="mapCenter" v-if="mapCenter" :markers="[mapCenter]"></MapDisplay>
+    <MapDisplay :data="mapData" v-if="mapData"></MapDisplay>
   </div>
-  <div v-else>
-    Loading data, please wait...
-  </div>
+  <LoadingWidget v-else></LoadingWidget>
 </template>
 
 <script setup>
@@ -66,13 +63,15 @@ import Breadcrumb from "@/components/Breadcrumb.vue";
 import ImageService from "@/services/ImageService";
 import HereService from "@/services/HereService";
 import MapDisplay from "@/components/MapDisplay.vue";
+import LoadingWidget from "@/components/LoadingWidget.vue";
 
 const route = useRoute()
 const id = route.params.id;
 
 const flight = ref(null);
 const crumbs = ref([]);
-const mapCenter = ref(null);
+const mapData = ref(null);
+
 FlightService.getFlightById(id)
     .then(rsp => {
       flight.value = rsp.data
@@ -91,10 +90,19 @@ FlightService.getFlightById(id)
       };
       img.src = ImageService.getDestinationImageUrl(rsp.data.destination);
 
-      // Load map
+      // Load map data
+      let pos = null
       HereService.geocode(rsp.data.destination)
           .then(coded => {
-            mapCenter.value = coded.data.items[0].position
+            pos = coded.data.items[0].position;
+            mapData.value = {
+              center: pos,
+              zoom: 8,
+              markers: [{
+                id: rsp.data.id,
+                position: pos
+              }]
+            }
           });
     })
 </script>

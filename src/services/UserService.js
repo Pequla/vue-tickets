@@ -8,7 +8,7 @@ const client = axios.create({
         Accept: 'application/json',
         'Content-Type': 'application/json'
     }, validateStatus: function (status) {
-        return status === 200;
+        return status === 200 || status === 204;
     }
 });
 
@@ -61,5 +61,18 @@ export default {
                 router.push('/user/ticket/' + rsp.data.id);
             })
             .catch(err => handleError(err))
+    },
+    getTicketById(id) {
+        const pro = client.get('/ticket/' + id + '?token=' + getToken())
+        pro.catch(err => handleError(err))
+        return pro
+    },
+    deleteTicket(id) {
+        client.delete('/ticket/' + id + '?token=' + getToken())
+            .then(rsp=> router.push('/user/ticket'))
+            .catch(err => handleError(err))
+    },
+    getTickets() {
+        return client.get('/ticket?token=' + getToken())
     }
 }

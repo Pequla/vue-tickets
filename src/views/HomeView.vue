@@ -1,116 +1,97 @@
 <template>
   <div class="home" v-if="destinations">
-    <h1>Home</h1>
     <div class="row mb-3">
       <div class="col-sm">
         Destination:
         <select class="form-select" v-model="destination" @change="refreshData">
-          <option value="invalid">Select destination</option>
+          <option value="Recommended">Recommended</option>
           <option v-for="destination in destinations" :value="destination">{{ destination }}</option>
         </select>
       </div>
       <div class="col-sm">
+        Airline:
+        <select class="form-select" id="airline" v-model="airline" @change="updateChoice">
+          <option value="Air Serbia">Air Serbia</option>
+          <option value="Fly Emirates">Fly Emirates</option>
+          <option value="Air France">Air France</option>
+        </select>
+      </div>
+      <div class="col-sm">
         Ticket count:
-        <select class="form-select">
-          <option selected>Select count</option>
-          <option value="1">1 (One)</option>
-          <option value="2">2 (Two)</option>
-          <option value="2">3 (Tree)</option>
-          <option value="2">4 (Four)</option>
-          <option value="2">5 (Five)</option>
+        <select class="form-select" id="count" v-model="count" @change="updateChoice">
+          <option value="1">Single person</option>
+          <option value="2">Two people</option>
+          <option value="3">Tree people</option>
         </select>
       </div>
       <div class="col-sm">
-        Passanger type:
-        <select class="form-select">
-          <option selected>Select type</option>
-          <option value="1">Adults</option>
-          <option value="2">Kids</option>
-        </select>
-      </div>
-      <div class="col-sm">
-        Date:
-        <select class="form-select">
-          <option selected>Select date</option>
-          <option value="1">Today</option>
-          <option value="2">Tomorrow</option>
+        Ticket type:
+        <select class="form-select" id="count" v-model="oneWay" @change="updateChoice">
+          <option value="true">One way</option>
+          <option value="false">Return</option>
         </select>
       </div>
     </div>
-    <div class="row mb-3" v-if="(results && results.length > 0)">
-      <div class="col-sm d-flex justify-content-center flight-card" v-for="result in results.slice(0, 3)">
-        <div class="card">
-          <img :src="ImageService.getDestinationImageUrl(result.destination)" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">{{ result.destination }}</h5>
-            <p class="card-text">Flight <strong>{{ result.flightNumber }}</strong>, departure at: <strong>{{
-                new Date(result.scheduledAt).toLocaleString('sr-SR')
-              }}</strong></p>
-          </div>
-          <div class="card-body">
-            <router-link :to="'/user/ticket/new/'+result.id" class="card-link btn btn-success">Book</router-link>
-            <router-link :to="'/flight/'+result.id" class="card-link btn btn-secondary">More Details</router-link>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mb-3" v-else>
-      No flights found to <strong>{{ destination }}</strong>
-    </div>
-    <MapDisplay :center="{lat: 44.787197, lng: 20.457273}" :markers="markers"></MapDisplay>
+
+    <Recommended v-if="destination === 'Recommended'"></Recommended>
+    <FlightTable v-else :flights="results"></FlightTable>
   </div>
+  <LoadingWidget v-else></LoadingWidget>
 </template>
 
 <script setup>
 import FlightService from "@/services/FlightService";
-import HereService from "@/services/HereService";
-import ImageService from "@/services/ImageService";
-import MapDisplay from "@/components/MapDisplay.vue";
 import {ref} from "vue";
+import LoadingWidget from "@/components/LoadingWidget.vue";
+import FlightTable from "@/components/flight/FlightTable.vue";
+import Recommended from "@/components/home/Recommended.vue";
+
+if (!localStorage.getItem('destination')) {
+  localStorage.setItem('destination', 'Recommended')
+}
+const destination = ref(localStorage.getItem('destination'))
 
 const destinations = ref(null);
-const destination = ref("invalid")
 FlightService.getDestinations()
     .then(rsp => {
       destinations.value = rsp.data
-      // destination.value = rsp.data[0]
-      // refreshData();
     })
 
+// Setting airline
+if (!localStorage.getItem('airline')) {
+  localStorage.setItem('airline', 'Air Serbia')
+}
+const airline = ref(localStorage.getItem('airline'))
 
-const results = ref(null);
-const markers = ref(null);
-const renderData = function (service) {
-  service.then(rsp => {
-    results.value = rsp.data.content
-    rsp.data.content.forEach(flight => {
-      HereService.geocode(flight.destination)
-          .then(coded => {
-            markers.value.push({
-              id: flight.id,
-              position: coded.data.items[0].position
-            })
-          })
-    });
-  })
+// Setting count
+if (!localStorage.getItem('count')) {
+  localStorage.setItem('count', '1')
+}
+const count = ref(parseInt(localStorage.getItem('count')))
+
+// Setting one way
+if (!localStorage.getItem('oneWay')) {
+  localStorage.setItem('oneWay', 'true')
+}
+const oneWay = ref(localStorage.getItem('oneWay'))
+
+const results = ref([]);
+
+function refreshData() {
+  localStorage.setItem('destination', destination.value)
+  if (destination.value === 'Recommended') return;
+  FlightService.getFlightsByDestination(destination.value)
+      .then(rsp => {
+        results.value = rsp.data.content;
+      })
 }
 
-// Render the base data
-renderData(FlightService.getFlights())
+// In case the destination is set
+refreshData();
 
-const refreshData = function () {
-  if (!destination) return
-
-  if (destination.value === "invalid") {
-    renderData(FlightService.getFlights())
-  } else {
-    renderData(FlightService.getFlightsByDestination(destination.value))
-  }
+function updateChoice() {
+  localStorage.setItem('airline', airline.value)
+  localStorage.setItem('count', count.value.toString())
+  localStorage.setItem('oneWay', oneWay.value.toString())
 }
 </script>
-
-<style>
-.flight-card {
-  max-width: 33%;
-}
-</style>

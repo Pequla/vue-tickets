@@ -26,9 +26,12 @@
       <select class="form-select" id="count" v-model="count">
         <option value="1">Single person</option>
         <option value="2">Two people</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
+        <option value="3">Tree people</option>
       </select>
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="one-way" v-model="oneWay">
+      <label class="form-check-label" for="one-way">One way ticket</label>
     </div>
     <button type="button" class="btn btn-success" @click="bookCallback">Book now</button>
   </div>
@@ -49,10 +52,11 @@ const destination = ref();
 const departure = ref();
 const airline = ref("Air Serbia")
 const count = ref(1)
+const oneWay = ref(false)
 
-FlightService.getFlightById(id).then(rsp=>{
+FlightService.getFlightById(id).then(rsp => {
   flight.value = rsp.data.flightKey;
-  destination.value =rsp.data.destination;
+  destination.value = rsp.data.destination;
   departure.value = new Date(rsp.data.scheduledAt).toLocaleString("sr-SR");
 })
 
@@ -60,7 +64,8 @@ function bookCallback() {
   UserService.createTicket({
     'flightId': id,
     'airline': airline.value,
-    'count': count.value
+    'count': count.value,
+    'oneWay': oneWay.value
   })
 }
 </script>
