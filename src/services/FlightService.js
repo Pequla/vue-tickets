@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-    baseURL: 'http://82.208.22.205:7000/api',
+    baseURL: 'https://flight.pequla.com/api',
     withCredentials: false,
     headers: {
         Accept: 'application/json',
