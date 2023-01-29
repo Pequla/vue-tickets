@@ -69,7 +69,7 @@ export default {
     },
     deleteTicket(id) {
         client.delete('/ticket/' + id + '?token=' + getToken())
-            .then(rsp=> router.push('/user/ticket'))
+            .then(rsp => router.push('/user/ticket'))
             .catch(err => handleError(err))
     },
     getTickets() {
@@ -82,5 +82,8 @@ export default {
         client.put('/user/password?token=' + getToken(), payload)
             .then(rsp => router.push('/'))
             .catch(err => handleError(err))
+    },
+    updateTicketRating(id, rating) {
+        return client.put('/ticket/' + id + '?token=' + getToken() + '&rating=' + rating)
     }
 }

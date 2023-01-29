@@ -22,7 +22,7 @@
       <td>{{ ticket.airline }}</td>
       <td>{{ ticket.count }}</td>
       <td>
-        <router-link :to="('/user/ticket/' + ticket.id + '/barcode')" class="btn btn-success m-1">Show Barcode
+        <router-link :to="('/user/ticket/' + ticket.id + '/qrcode')" class="btn btn-success m-1">Show Qrcode
         </router-link>
         <router-link :to="('/user/ticket/' + ticket.id)" class="btn btn-secondary m-1">More Details</router-link>
       </td>

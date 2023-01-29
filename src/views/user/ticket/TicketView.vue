@@ -36,9 +36,13 @@
           <th>REGISTERED AT</th>
           <th>{{ new Date(ticket.createdAt).toLocaleString('sr-SR') }}</th>
         </tr>
+        <tr v-if="ticket.usedAt">
+          <th>USED AT</th>
+          <th>{{ new Date(ticket.usedAt).toLocaleString('sr-SR') }}</th>
+        </tr>
         <tr>
           <th colspan="2">
-            <router-link class="btn btn-success m-1" :to="'/user/ticket/'+ticket.id+'/barcode'">Show Barcode
+            <router-link class="btn btn-success m-1" :to="'/user/ticket/'+ticket.id+'/qrcode'">Show Qrcode
             </router-link>
             <router-link class="btn btn-secondary m-1" :to="'/flight/'+ticket.flight.id">Flight Information
             </router-link>
@@ -47,6 +51,13 @@
         </tr>
         </tbody>
       </table>
+      <div v-if="ticket.usedAt">
+        <h5>Your rating: ({{rating}})</h5>
+        <vue3-star-ratings
+            v-model="rating"
+            starSize="45"
+        />
+      </div>
     </div>
     <MapDisplay :data="mapData"></MapDisplay>
   </div>
@@ -56,20 +67,31 @@
 <script setup>
 import {useRoute} from "vue-router";
 import UserService from "@/services/UserService";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import LoadingWidget from "@/components/LoadingWidget.vue";
 import Breadcrumb from "@/components/Breadcrumb.vue";
 import HereService from "@/services/HereService";
 import MapDisplay from "@/components/MapDisplay.vue";
+import Vue3StarRatings from "vue3-star-ratings";
 
 const route = useRoute()
 const id = route.params.id;
 
 const ticket = ref();
+const rating = ref();
 const crumbs = ref();
 const mapData = ref(null);
 
 UserService.getTicketById(id).then(rsp => {
+  updatePage(rsp)
+  watch(rating, (nv, ov) => {
+    if (nv !== ticket.value.rating)
+      UserService.updateTicketRating(ticket.value.id, nv)
+          .then(rsp => updatePage(rsp))
+  })
+})
+
+function updatePage(rsp) {
   HereService.geocode(rsp.data.flight.destination)
       .then(coded => {
         ticket.value = rsp.data
@@ -77,6 +99,7 @@ UserService.getTicketById(id).then(rsp => {
           {url: '/user/ticket', text: 'Tickets'},
           {text: rsp.data.flight.flightKey}
         ]
+        rating.value = rsp.data.rating;
 
         let pos = coded.data.items[0].position;
         mapData.value = {
@@ -88,7 +111,7 @@ UserService.getTicketById(id).then(rsp => {
           }]
         }
       });
-})
+}
 
 </script>
 

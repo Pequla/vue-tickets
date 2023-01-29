@@ -12,7 +12,7 @@ import LogoutView from "@/views/action/LogoutView.vue";
 import ProfileView from "@/views/user/ProfileView.vue";
 import NewView from "@/views/user/ticket/NewView.vue";
 import TicketView from "@/views/user/ticket/TicketView.vue";
-import BarcodeView from "@/views/user/ticket/BarcodeView.vue";
+import QrcodeView from "@/views/user/ticket/QrcodeView.vue";
 import TicketList from "@/views/user/ticket/TicketList.vue";
 import UsedTickets from "@/views/user/ticket/UsedTickets.vue";
 import ResetPassword from "@/views/user/ResetPassword.vue";
@@ -136,11 +136,11 @@ const routes = [
         params: true
     },
     {
-        path: '/user/ticket/:id/barcode',
-        name: 'barcode',
-        component: BarcodeView,
+        path: '/user/ticket/:id/qrcode',
+        name: 'qrcode',
+        component: QrcodeView,
         meta: {
-            title: 'Barcode'
+            title: 'Qrcode'
         },
         params: true
     },
